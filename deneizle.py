@@ -26,7 +26,7 @@ def izlet2(link):
     print ("Baslatiliyor")
     options = Options()
     options.headless = True
-    driver = webdriver.Firefox(options=options,executable_path=r"C:\Users\Mert\Desktop\geckodriver.exe")
+    driver = webdriver.Firefox(options=options,executable_path="./geckodriver")
     driver.get(link)
     element = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "movie_player")))
     dakikaelement= WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "ytp-time-duration")))
