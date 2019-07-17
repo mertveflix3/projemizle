@@ -29,11 +29,14 @@ def izlet(link):
     izletth.start()
 
 def izlet2(link):
-    print ("Baslatiliyor")
-    options = Options()
-    options.headless = True
-    driver = webdriver.Firefox(options=options,executable_path="./geckodriver")
     while True:
+        print ("Baslatiliyor")
+        options = Options()
+        options.headless = True
+        profile = webdriver.FirefoxProfile()
+        profile.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0")
+        profile.set_preference('intl.accept_languages', 'en-US, en')
+        driver = webdriver.Firefox(firefox_profile=profile,options=options,executable_path="./geckodriver")
         driver.get(link)
         element = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "movie_player")))
         dakikaelement= WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "ytp-time-duration")))
@@ -55,6 +58,7 @@ def izlet2(link):
                 element.click()
             except Exception as e:
                 print(e)
+                driver.quit()
                 continue
             
         print kacsaniye," Saniye Bekleniyor"
@@ -64,5 +68,5 @@ def izlet2(link):
         driver.save_screenshot('screen2.png')
         print("Screen Shot Alindi")
         break
-    driver.close()
+    driver.quit()
 
