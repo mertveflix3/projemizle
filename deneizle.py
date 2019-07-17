@@ -4,10 +4,15 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import re
+import subprocess
 import math
-import sys
 from threading import Thread
+
+try:
+    subprocess.call("chmod +x ./geckodriver", shell=True)
+except:
+    pass
+    
 
 def suretosn(sure):
     saniye=0

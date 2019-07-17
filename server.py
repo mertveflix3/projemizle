@@ -1,6 +1,5 @@
 #-*- coding: cp1254 -*-
 import socket
-import subprocess
 from threading import Thread
 import time
 
@@ -48,8 +47,8 @@ def linkal(b,ba):
                 hatalilar.append(b[i])
                 print "Silindi->>",ba[i]
         for hatali in hatalilar:
-            b.remove(hatali)
-            ba.remove(hatali.getpeername())        
+            ba.pop(b.index(hatali))
+            b.remove(hatali)  
         
     while True:
         if(len(b)>0):
