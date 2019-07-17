@@ -33,33 +33,36 @@ def izlet2(link):
     options = Options()
     options.headless = True
     driver = webdriver.Firefox(options=options,executable_path="./geckodriver")
-    driver.get(link)
-    element = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "movie_player")))
-    dakikaelement= WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "ytp-time-duration")))
-    sure = dakikaelement.get_attribute('innerHTML')
-    kacsaniye = suretosn(sure)
-    print kacsaniye
+    while True:
+        driver.get(link)
+        element = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.ID, "movie_player")))
+        dakikaelement= WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.CLASS_NAME, "ytp-time-duration")))
+        sure = dakikaelement.get_attribute('innerHTML')
+        kacsaniye = suretosn(sure)
+        print kacsaniye
 
 
-    simdizamanelement = driver.find_element_by_class_name("ytp-time-current")
+        simdizamanelement = driver.find_element_by_class_name("ytp-time-current")
 
 
-    time.sleep(10)
-    simdizaman = simdizamanelement.get_attribute('innerHTML')
-    
-    if(simdizaman=="0:00"):
-        try:
-            actions = ActionChains(driver)
-            actions.move_to_element(element).perform()
-            element.click()
-        except:
-            driver.execute_script('document.getElementById("movie_player").click()')
+        time.sleep(10)
+        simdizaman = simdizamanelement.get_attribute('innerHTML')
         
-    print kacsaniye," Saniye Bekleniyor"
-    time.sleep(kacsaniye)
+        if(simdizaman=="0:00"):
+            try:
+                actions = ActionChains(driver)
+                actions.move_to_element(element).perform()
+                element.click()
+            except Exception as e:
+                print(e)
+                continue
+            
+        print kacsaniye," Saniye Bekleniyor"
+        time.sleep(kacsaniye)
 
 
-    driver.save_screenshot('screen2.png')
-    print("Screen Shot Alindi")
+        driver.save_screenshot('screen2.png')
+        print("Screen Shot Alindi")
+        break
     driver.close()
 
