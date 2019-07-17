@@ -4,6 +4,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.action_chains import ActionChains
 import subprocess
 import math
 from threading import Thread
@@ -45,8 +46,14 @@ def izlet2(link):
 
     time.sleep(10)
     simdizaman = simdizamanelement.get_attribute('innerHTML')
+    
     if(simdizaman=="0:00"):
-        element.click()
+        try:
+            actions = ActionChains(driver)
+            actions.move_to_element(element).perform()
+            element.click()
+        except:
+            driver.execute_script('document.getElementById("movie_player").click()')
         
     print kacsaniye," Saniye Bekleniyor"
     time.sleep(kacsaniye)
