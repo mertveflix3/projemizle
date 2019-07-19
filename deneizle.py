@@ -34,7 +34,6 @@ def izlet2(link):
         options = Options()
         options.headless = True
         profile = webdriver.FirefoxProfile()
-        profile.set_preference("general.useragent.override", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101 Firefox/68.0")
         profile.set_preference('intl.accept_languages', 'en-US, en')
         driver = webdriver.Firefox(firefox_profile=profile,options=options,executable_path="./geckodriver")
         driver.get(link)
@@ -47,9 +46,10 @@ def izlet2(link):
 
         simdizamanelement = driver.find_element_by_class_name("ytp-time-current")
 
-
+        
         time.sleep(10)
         simdizaman = simdizamanelement.get_attribute('innerHTML')
+        driver.save_screenshot('screen1.png')
         
         if(simdizaman=="0:00"):
             try:
@@ -62,10 +62,11 @@ def izlet2(link):
                 continue
             
         print kacsaniye," Saniye Bekleniyor"
+        driver.save_screenshot('screen2.png')
         time.sleep(kacsaniye)
 
 
-        driver.save_screenshot('screen2.png')
+        driver.save_screenshot('screen3.png')
         print("Screen Shot Alindi")
         break
     driver.quit()
